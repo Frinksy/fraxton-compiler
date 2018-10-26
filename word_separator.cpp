@@ -22,7 +22,6 @@ bool isspecialchar(char c) {
 
 vector<string> splitsymbols (string symbols)
 {
-    cout << endl << "SPLITTING" << endl;
     vector<string> output;
     if (symbols.size() > 1)
     {
@@ -76,8 +75,7 @@ vector<string> splitsymbols (string symbols)
                         break;
                 }
                 break;
-            default:
-                cout << "Default case!" << endl;
+            default:                
                 string a = "";
                 a += symbols[i];
                 output.push_back(a);
@@ -92,11 +90,6 @@ vector<string> splitsymbols (string symbols)
         output.push_back(symbols);
     }
 
-    cout << endl << "Symbols are :" << endl;
-
-    for (int i = 0; i < output.size(); i++) {
-        cout << output[i] << endl;
-    }
 
     return output;
 
@@ -119,9 +112,21 @@ vector<string> word_separator (string code) {
     {
         if (code[i] == ' ' && holder.size() > 0) 
         {
+            if (!issymbols) 
+            {
+                output.push_back(holder);
+            }
+            else
+            {
+                issymbols = false;
+                vector<string> split;
+                split = splitsymbols(holder);
+                for (int i = 0; i < split.size(); i++)
+                {
+                    output.push_back(split[i]);
+                }
+            }
 
-            output.push_back(holder);
-            issymbols = false;
             holder = ""; // reset holder
         }else {
 
@@ -167,6 +172,5 @@ vector<string> word_separator (string code) {
         cout << output[i] << endl;
     }
     
-
     return output;
 }
