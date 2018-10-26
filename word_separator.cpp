@@ -31,52 +31,7 @@ TODO:
 
 */
 
-/*
-vector<string> word_separator (string code) {
 
-    string holder;  // holds the current word
-    vector<string> output; // holds the list of words
-
-    bool issymbols = false;
-
-    for (int i = 0; i < code.size(); i++) {
-
-        if (code[i] == ' ' && !holder.empty()) {
-            output.push_back(holder);
-            holder = "";
-
-        }else if (isspecialchar(code[i]) && !issymbols && !holder.empty()) {
-
-            output.push_back(holder); // push holder to output
-            
-            holder = "";              // flush holder
-            issymbols = true;
-            
-        }else if (!isspecialchar(code[i]) && issymbols && !holder.empty()) {
-
-            output.push_back(holder); // push holder to output
-            holder = "";              // flush holder
-            issymbols = false;
-            
-        }
-
-        if (code[i]!=' ') {
-            holder += code[i];
-        }
-    }
-
-    output.push_back(holder);
-
-
-
-        for (int i = 0; i<output.size(); i++) {
-            cout << "Word " << i << " is :" << output[i] << endl;
-        }
-
-
-    return output;
-}
-*/
 
 vector<string> word_separator (string code) {
 
@@ -86,7 +41,7 @@ vector<string> word_separator (string code) {
 
     string holder = ""; // temporary buffer to hold the word being constructed
 
-
+    bool issymbols = isspecialchar(code[0]);
 
     for (int i = 0; i < code.size(); i++) {
         if (code[i] == ' ' && holder.size() > 0) {
@@ -96,7 +51,15 @@ vector<string> word_separator (string code) {
             holder = ""; // reset holder
         }else {
 
-            
+            if ((isspecialchar(code[i]) && !issymbols) || (!isspecialchar(code[i]) && issymbols)) {
+                issymbols = !issymbols;
+                if (holder.size() > 0) {
+
+                    output.push_back(holder);
+                    holder = "";
+
+                }
+            }
 
 
 
