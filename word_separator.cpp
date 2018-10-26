@@ -163,14 +163,7 @@ vector<string> word_separator (string code) {
 
         
     }
-
-    output.push_back(holder);
-
-    
-    for (int i = 0; i < output.size(); i++) {
-
-        cout << output[i] << endl;
-    }
+    output.push_back(holder); // Add last word that is left in holder
     
     return output;
 }
