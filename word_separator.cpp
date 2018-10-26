@@ -8,7 +8,7 @@ using namespace std;
 
 bool isspecialchar(char c) {
 
-    string spchars = "&~\"#'{([-|`_\\ç@)]+}=*\%$!;";
+    string spchars = "&~\"#'{([-|`_\\@)]+}=*\%$!;";
 
     for (int i = 0; i < spchars.size(); i++) {
         if (c == spchars[i]) {
@@ -20,16 +20,88 @@ bool isspecialchar(char c) {
 }
 
 
-/*
-TODO:
-    make sure numbers are processed as one
-    make sure correct operators/symbols are processed as one
+vector<string> splitsymbols (string symbols)
+{
+    cout << endl << "SPLITTING" << endl;
+    vector<string> output;
+    if (symbols.size() > 1)
+    {
+    for (int i = 0; i < symbols.size(); i++) 
+    {
+        switch (symbols[i])
+        {
+            case '+':
+                switch (symbols[i+1])
+                {
+                    case '+':
+                        output.push_back("++");
+                        i++;
+                        break;
+                    case '=':
+                        output.push_back("+=");
+                        i++;
+                        break;
+                    default:
+                        output.push_back("+");
+                        break;
+
+                }
+                break;
+            case '-':
+                switch (symbols[i+1])
+                {
+                    case '-':
+                        output.push_back("--");
+                        i++;
+                        break;
+                    case '=':
+                        output.push_back("-=");
+                        i++;
+                        break;
+                    default:
+                        output.push_back("-");
+                        break;
+                }
+                break;
+
+            case '=':
+                switch (symbols[i+1])
+                {
+                    case '=':
+                        output.push_back("==");
+                        i++;
+                        break;
+                    default:
+                        output.push_back("=");
+                        break;
+                }
+                break;
+            default:
+                cout << "Default case!" << endl;
+                string a = "";
+                a += symbols[i];
+                output.push_back(a);
+                a = "";
+                break;
+
+        }
+    }
+    }
+    else
+    {
+        output.push_back(symbols);
+    }
+
+    cout << endl << "Symbols are :" << endl;
+
+    for (int i = 0; i < output.size(); i++) {
+        cout << output[i] << endl;
+    }
+
+    return output;
 
 
-    i++ --> i ++
-    int hello=12; --> int hello = 12 ;
-
-*/
+}
 
 
 
@@ -43,22 +115,38 @@ vector<string> word_separator (string code) {
 
     bool issymbols = isspecialchar(code[0]);
 
-    for (int i = 0; i < code.size(); i++) {
-        if (code[i] == ' ' && holder.size() > 0) {
+    for (int i = 0; i < code.size(); i++) 
+    {
+        if (code[i] == ' ' && holder.size() > 0) 
+        {
 
             output.push_back(holder);
-
+            issymbols = false;
             holder = ""; // reset holder
         }else {
 
-            if ((isspecialchar(code[i]) && !issymbols) || (!isspecialchar(code[i]) && issymbols)) {
-                issymbols = !issymbols;
-                if (holder.size() > 0) {
+            if (isspecialchar(code[i]) && !issymbols) // if change from symbols to alpha
+            {
+                issymbols = true;
+                if (holder.size() > 0) 
+                {
 
                     output.push_back(holder);
                     holder = "";
 
                 }
+            }else if (!isspecialchar(code[i]) && issymbols && holder.size() > 0) 
+            {
+                issymbols = false;  
+                vector<string> split;
+                split = splitsymbols(holder);
+                
+                for (int i = 0; i < split.size(); i++) {
+                    output.push_back(split[i]);
+                }
+
+                holder = "";
+
             }
 
 
@@ -73,11 +161,12 @@ vector<string> word_separator (string code) {
 
     output.push_back(holder);
 
+    
     for (int i = 0; i < output.size(); i++) {
 
         cout << output[i] << endl;
     }
-
+    
 
     return output;
 }
