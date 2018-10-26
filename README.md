@@ -9,3 +9,9 @@
 #### How is it intended to function?
 > Fraxton should compile down to C++ code
 > In the future, it might compile to Assembly (once I have the skills to do so)
+
+
+
+#### Can I use this compiler?
+> Not yet.
+> Only *part* of the lexer is functional for now....
