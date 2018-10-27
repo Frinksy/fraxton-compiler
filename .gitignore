@@ -1,4 +1,4 @@
 *.exe
 *.frt
 .vscode/
-.debug
+*.debug
