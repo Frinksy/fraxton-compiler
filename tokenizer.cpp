@@ -1,20 +1,30 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
 using namespace std;
 
 /*
 
 
     int bool char string array --> data types
-    = --> assignment
-    == <= >= 
+    if else while for --> condition statements
+    = == <= >= > <  + - * / ++ -- -= += --> operators
     { } ( ) [ ] -->
-    ; --> end of statement
-    sjdsfisfowc23__xw1 --> identifier
 
 
 */
 
 
+struct token
+{
+    string seq;
+    string type;
+};
+
+
+vector<token> assign_tokens (vector<string> words) 
+{
+
+    vector<token> output;
+    return output;
+}

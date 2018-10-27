@@ -98,6 +98,35 @@ vector<string> splitsymbols (string symbols)
                         break;
                 }
                 break;
+            case '*':   
+                switch (symbols[i+1])
+                {
+                    case '*':
+                        output.push_back("**");
+                        i++;
+                    case '=':
+                        output.push_back("*=");
+                        i++;
+                        break;
+                    default:
+                        string a = "";
+                        a += "*";
+                        output.push_back(a);
+                        break;
+                }
+            case '\\':
+                switch (symbols[i+1])
+                {
+                    case '=':
+                        output.push_back("/=");
+                        i++;
+                        break;
+                    default:
+                        string a = "";
+                        a += "/";
+                        output.push_back(a);
+                        break;
+                }
             default:                
                 string a = "";
                 a += symbols[i];
