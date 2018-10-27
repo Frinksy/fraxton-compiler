@@ -15,3 +15,9 @@
 #### Can I use this compiler?
 > Not yet.
 > Only *part* of the lexer is functional for now....
+
+
+#### When will it be available to use?
+> As soon as I get it working!  
+> No release date is scheduled as I am learning every step of the way.  
+> If you would want to collaborate, feel free!
