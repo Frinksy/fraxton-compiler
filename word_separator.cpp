@@ -20,8 +20,8 @@ bool isspecialchar(char c) {
 }
 
 
-vector<string> splitsymbols (string symbols)
-{
+vector<string> splitsymbols (string symbols) 
+{   // Splits symbols up into the longest match ('++' stays '++' but '()' becomes '(' & ')' )
     vector<string> output;
     if (symbols.size() > 1)
     {
@@ -158,7 +158,7 @@ vector<string> word_separator (string code) {
 
     string holder = ""; // temporary buffer to hold the word being constructed
 
-    bool issymbols = isspecialchar(code[0]);
+    bool issymbols = isspecialchar(code[0]); // are current chars in the holder symbols?
 
     for (int i = 0; i < code.size(); i++) 
     {
@@ -166,10 +166,10 @@ vector<string> word_separator (string code) {
         {
             if (!issymbols) 
             {
-                output.push_back(holder);
+                output.push_back(holder); //  push holder to word list
             }
             else
-            {
+            {   // split the symbols up into separate words
                 issymbols = false;
                 vector<string> split;
                 split = splitsymbols(holder);
@@ -182,40 +182,44 @@ vector<string> word_separator (string code) {
             holder = ""; // reset holder
         }else {
 
-            if (isspecialchar(code[i]) && !issymbols) // if change from symbols to alpha
-            {
+            if (isspecialchar(code[i]) && !issymbols)
+            { // change from alphanum to symbols
                 issymbols = true;
                 if (holder.size() > 0) 
-                {
-
+                {   // push and reset holder
                     output.push_back(holder);
-                    holder = "";
-
+                    holder = "";    // make sure holder is reset
                 }
             }else if (!isspecialchar(code[i]) && issymbols && holder.size() > 0) 
-            {
+            {   // change from symbols to alphanum
                 issymbols = false;  
-                vector<string> split;
+                vector<string> split;   // split symbols 
                 split = splitsymbols(holder);
                 
                 for (int i = 0; i < split.size(); i++) {
-                    output.push_back(split[i]);
+                    output.push_back(split[i]);     // push symbols to word list
                 }
 
-                holder = "";
+                holder = "";    // make sure holder is reset
 
             }
-
-
-
 
             holder += code[i]; // add the character
         }
 
-
-        
     }
-    output.push_back(holder); // Add last word that is left in holder
-    
+    if (!issymbols) {
+        output.push_back(holder); // add last word that is left in holder
+    }
+    else
+    {   // split symbols up and then add them
+        vector<string> split;
+        split = splitsymbols(holder);
+            for (int i = 0; i < split.size(); i++)
+            {   
+                output.push_back(split[i]);
+            }
+    }
+
     return output;
 }
