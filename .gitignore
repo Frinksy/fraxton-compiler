@@ -2,3 +2,4 @@
 *.frt
 .vscode/
 *.debug
+*.out
