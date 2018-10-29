@@ -159,52 +159,76 @@ vector<string> word_separator (string code) {
     string holder = ""; // temporary buffer to hold the word being constructed
 
     bool issymbols = isspecialchar(code[0]); // are current chars in the holder symbols?
+    bool isString = false; // are current chars part of a string?
 
     for (int i = 0; i < code.size(); i++) 
-    {
-        if (code[i] == ' ' && holder.size() > 0) 
+    {   
+        if (code[i] == '"')
         {
-            if (!issymbols) 
+              // push holder and flush it, then push ' " '  
+            
+            if (holder != "") // check if holder is empty 
             {
-                output.push_back(holder); //  push holder to word list
+                output.push_back(holder);
+                holder = "";
+                output.push_back("\"");
             }
             else
-            {   // split the symbols up into separate words
-                issymbols = false;
-                vector<string> split;
-                split = splitsymbols(holder);
-                for (int i = 0; i < split.size(); i++)
+            {
+                output.push_back("\"");
+            }
+            isString = !isString;
+        }
+        if (!isString && code[i] != '"')
+        { 
+            if (code[i] == ' ' && holder.size() > 0) 
+            {
+                if (!issymbols) 
                 {
-                    output.push_back(split[i]);
+                    output.push_back(holder); //  push holder to word list
                 }
+                else
+                {   // split the symbols up into separate words
+                    issymbols = false;
+                    vector<string> split;
+                    split = splitsymbols(holder);
+                    for (int i = 0; i < split.size(); i++)
+                    {
+                        output.push_back(split[i]);
+                    }
+                }
+
+                holder = ""; // reset holder
             }
+            else 
+            {
+                if (isspecialchar(code[i]) && !issymbols)
+                { // change from alphanum to symbols
+                    issymbols = true;
+                    if (holder.size() > 0) 
+                    {   // push and reset holder
+                        output.push_back(holder);
+                        holder = "";    // make sure holder is reset
+                    }
+                }else if (!isspecialchar(code[i]) && issymbols && holder.size() > 0) 
+                {   // change from symbols to alphanum
+                    issymbols = false;  
+                    vector<string> split;   // split symbols 
+                    split = splitsymbols(holder);
+                    
+                    for (int i = 0; i < split.size(); i++) {
+                        output.push_back(split[i]);     // push symbols to word list
+                    }
 
-            holder = ""; // reset holder
-        }else {
-
-            if (isspecialchar(code[i]) && !issymbols)
-            { // change from alphanum to symbols
-                issymbols = true;
-                if (holder.size() > 0) 
-                {   // push and reset holder
-                    output.push_back(holder);
                     holder = "";    // make sure holder is reset
-                }
-            }else if (!isspecialchar(code[i]) && issymbols && holder.size() > 0) 
-            {   // change from symbols to alphanum
-                issymbols = false;  
-                vector<string> split;   // split symbols 
-                split = splitsymbols(holder);
-                
-                for (int i = 0; i < split.size(); i++) {
-                    output.push_back(split[i]);     // push symbols to word list
-                }
 
-                holder = "";    // make sure holder is reset
-
+                }
+                holder += code[i]; // add the character
             }
-
-            holder += code[i]; // add the character
+        }
+        else if (code[i]!='"')
+        {
+            holder += code[i];
         }
 
     }
