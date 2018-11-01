@@ -24,7 +24,7 @@ ifstream source_file;
             }
         }
 
-        code += holder;
+        code += holder + " ";
         holder = "";
     }
 
