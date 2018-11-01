@@ -8,7 +8,7 @@ using namespace std;
 
 bool isspecialchar(char c) {
 
-    string spchars = "&~\"#'{([-|`_\\@)]+}=*\%$!;";
+    string spchars = "&~\"#<>'{([-|`_\\@)]+}=*\%$!;";
 
     for (int i = 0; i < spchars.size(); i++) {
         if (c == spchars[i]) {
