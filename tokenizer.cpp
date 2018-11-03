@@ -26,6 +26,18 @@ bool isInteger (string word)
     return true;
 }
 
+bool isFloat (string word)
+{
+    for (unsigned i = 0; i < word.size(); i++)
+    {
+        if (!isdigit(word[i]) && word[i]!='.')
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
 bool isDefiner (string word)
 {
     string definers[] = {"int", "char", "string", "bool", "array", "float"};
@@ -50,14 +62,25 @@ struct token
 vector<token> assign_tokens (vector<string> words) 
 {
     vector<token> output;
+
+    bool isString = false;
     for (unsigned i = 0; i < words.size(); i++) 
    {    
        token t;
        t.seq = words[i];
        // DEBUG : 
         cout << endl << "Token is : " << t.seq << endl;
+        if (t.seq == "\"")
+        {
+            isString = !isString;
+            t.type = "strDelim";
+        }
 
-        if (isInteger(words[i]))
+        if (isString && t.seq !="\"")
+        {
+            t.type = "string";
+        }
+        else if (isInteger(words[i]))
         {
             t.type = "integer";
         }
@@ -65,7 +88,11 @@ vector<token> assign_tokens (vector<string> words)
         {
             t.type = "definer";
         }
-        else 
+        else if (isFloat(words[i]))
+        {
+            t.type = "float";
+        }
+        else if (t.type.size() == 0)
         {
             t.type = "undefined";
         }
