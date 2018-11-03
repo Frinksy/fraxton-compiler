@@ -185,7 +185,14 @@ vector<string> word_separator (string code) {
             {
                 if (!issymbols) 
                 {
+                    if (holder == " ")
+                    {
+                        holder = "";
+                    }
+                    else
+                    {
                     output.push_back(holder); //  push holder to word list
+                    }
                 }
                 else
                 {   // split the symbols up into separate words
@@ -232,7 +239,7 @@ vector<string> word_separator (string code) {
         }
 
     }
-    if (!issymbols) {
+    if (!issymbols && (holder.size() > 0 || holder != " ")) {
         output.push_back(holder); // add last word that is left in holder
     }
     else
