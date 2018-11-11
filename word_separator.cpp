@@ -127,6 +127,30 @@ vector<string> splitsymbols (string symbols)
                         output.push_back(a);
                         break;
                 }
+            case '&':
+                switch (symbols[i+1])
+                {
+                    case '&':
+                        output.push_back("&&");
+                        i++;
+                        break;
+                    default:
+                        output.push_back("&");
+                        break;
+                }
+                break;
+            case '|':
+                switch (symbols[i+1])
+                {
+                    case '|':
+                        output.push_back("||");
+                        i++;
+                        break;
+                    default:
+                        output.push_back("|");
+                        break;
+                }
+                break;
             default:                
                 string a = "";
                 a += symbols[i];
@@ -239,7 +263,8 @@ vector<string> word_separator (string code) {
         }
 
     }
-    if (!issymbols && (holder.size() > 0 || holder != " ")) {
+    if (!issymbols && (holder.size() > 0 || holder != " "))
+    {
         output.push_back(holder); // add last word that is left in holder
     }
     else
