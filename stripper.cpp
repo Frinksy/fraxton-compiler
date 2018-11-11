@@ -16,7 +16,7 @@ ifstream source_file;
 
     while (getline(source_file, line)) {
         
-        for (int i = 0; i<line.size(); i++) {
+        for (unsigned i = 0; i<line.size(); i++) {
             if (line[i] == '/' && line[i+1] == '/') {
                 i+=line.size();
             }else {
@@ -30,7 +30,7 @@ ifstream source_file;
 
     string stripped;
     bool is_comment = false;
-    for (int i = 0; i < code.size(); i++) {
+    for (unsigned i = 0; i < code.size(); i++) {
 
         
         switch (code[i])
