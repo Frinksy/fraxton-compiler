@@ -52,6 +52,43 @@ bool isDefiner (string word)
     return false;
 }
 
+bool isControlChar (string word)
+{
+    string control_chars[] = {"(", ")", ";", "[", "]", "{", "}"};
+
+    for (unsigned i = 0; i < sizeof(control_chars)/sizeof(control_chars[0]); i++)
+    {
+        if (word == control_chars[i])
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool isOperator (string word)
+{
+    string ops[] = {"+", "+=", "++",
+                    "-", "-=", "--",
+                    "*", "*=",
+                    "/", "/=",
+                    "=", "==",
+                    "<", "<=",
+                    ">", ">=",
+                    "!="};
+
+    for (unsigned i = 0; i < sizeof(ops)/sizeof(ops[0]); i++)
+    {
+        if (word == ops[i])
+        {
+            return true;
+        }
+    }
+
+    return false;
+
+}
+
 struct token
 {
     string seq;
@@ -91,6 +128,14 @@ vector<token> assign_tokens (vector<string> words)
         else if (isFloat(words[i]))
         {
             t.type = "float";
+        }
+        else if (isOperator(words[i]))
+        {
+            t.type = "operator";
+        }
+        else if (isControlChar(words[i]))
+        {
+            t.type = "controlChar";
         }
         else if (t.type.size() == 0)
         {
