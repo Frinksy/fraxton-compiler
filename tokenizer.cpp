@@ -11,6 +11,8 @@ using namespace std;
     = == <= >= > <  + - * / ++ -- -= += --> operators
     { } ( ) [ ] -->
 
+    reserved words are :
+
 
 */
 
@@ -89,6 +91,19 @@ bool isOperator (string word)
 
 }
 
+bool isKeyword (string word)
+{
+    string keywords[] = {"true", "false", "using", "NULL", "operator", "function"};
+
+    for (unsigned i  = 0; i < sizeof(keywords)/sizeof(keywords[0]); i++)
+    {
+        if (word == keywords[i])
+        {
+            return true;
+        }
+    }
+    return false;
+}
 struct token
 {
     string seq;
@@ -136,6 +151,10 @@ vector<token> assign_tokens (vector<string> words)
         else if (isControlChar(words[i]))
         {
             t.type = "controlChar";
+        }
+        else if (isKeyword(words[i]))
+        {
+            t.type = "keyword";
         }
         else if (t.type.size() == 0)
         {
