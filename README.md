@@ -21,3 +21,9 @@
 > As soon as I get it working!  
 > No release date is scheduled as I am learning every step of the way.  
 > If you would want to collaborate, feel free!
+
+
+#### Progress : 
+> The lexer is almost complete
+> The parser will be started soon
+> Assembly will be researched
