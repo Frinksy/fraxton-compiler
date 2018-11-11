@@ -10,7 +10,7 @@ bool isspecialchar(char c) {
 
     string spchars = "&~\"#<>'{([-|`_\\@)]+}=*\%$!;";
 
-    for (int i = 0; i < spchars.size(); i++) {
+    for (unsigned i = 0; i < spchars.size(); i++) {
         if (c == spchars[i]) {
             return true;
         }
@@ -25,7 +25,7 @@ vector<string> splitsymbols (string symbols)
     vector<string> output;
     if (symbols.size() > 1)
     {
-    for (int i = 0; i < symbols.size(); i++) 
+    for (unsigned i = 0; i < symbols.size(); i++) 
     {
         switch (symbols[i])
         {
@@ -185,7 +185,7 @@ vector<string> word_separator (string code) {
     bool issymbols = isspecialchar(code[0]); // are current chars in the holder symbols?
     bool isString = false; // are current chars part of a string?
 
-    for (int i = 0; i < code.size(); i++) 
+    for (unsigned i = 0; i < code.size(); i++) 
     {   
         if (code[i] == '"')
         {
@@ -223,7 +223,7 @@ vector<string> word_separator (string code) {
                     issymbols = false;
                     vector<string> split;
                     split = splitsymbols(holder);
-                    for (int i = 0; i < split.size(); i++)
+                    for (unsigned i = 0; i < split.size(); i++)
                     {
                         output.push_back(split[i]);
                     }
@@ -247,7 +247,7 @@ vector<string> word_separator (string code) {
                     vector<string> split;   // split symbols 
                     split = splitsymbols(holder);
                     
-                    for (int i = 0; i < split.size(); i++) {
+                    for (unsigned i = 0; i < split.size(); i++) {
                         output.push_back(split[i]);     // push symbols to word list
                     }
 
@@ -271,7 +271,7 @@ vector<string> word_separator (string code) {
     {   // split symbols up and then add them
         vector<string> split;
         split = splitsymbols(holder);
-            for (int i = 0; i < split.size(); i++)
+            for (unsigned i = 0; i < split.size(); i++)
             {   
                 output.push_back(split[i]);
             }
