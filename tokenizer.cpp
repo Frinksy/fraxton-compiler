@@ -158,7 +158,7 @@ vector<token> assign_tokens (vector<string> words)
         }
         else if (t.type.size() == 0)
         {
-            t.type = "undefined";
+            t.type = "identifier";
         }
         cout << "Type is : " << t.type << endl;
         
